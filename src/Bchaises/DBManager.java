@@ -2,12 +2,15 @@ package Bchaises;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBManager {
 
     private String URL = "jdbc:mysql://127.0.0.1/subnautica_attack?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String LOGIN = "Benjamin";
-    private String PASSWORD = "?MiD6S4Q6AFAgk$";
+    private String PASSWORD = "x1XnnrQfLeqmvhCT";
     private Connection connection;
     private Statement stmt;
 
@@ -35,17 +38,17 @@ public class DBManager {
         return true;
     }
 
-    public ArrayList<Poissons> getAllPoissons() throws SQLException{
-        ArrayList<Poissons> res = new ArrayList<>();
+    public ArrayList<Poisson> getAllPoisson() throws SQLException{
+        ArrayList<Poisson> res = new ArrayList<>();
         try{
             this.stmt = this.connection.createStatement();
-            String query = "SELECT * FROM poissons";
+            String query = "SELECT * FROM poisson";
             ResultSet rs = stmt.executeQuery(query);
 
             while(rs.next()){
-                int id = rs.getInt("id_poisson");
-                String nom = rs.getString("nom_poisson");
-                Poissons p = new Poissons(id, nom);
+                int id = rs.getInt("id_p");
+                String nom = rs.getString("nom_p");
+                Poisson p = new Poisson(id, nom);
                 res.add(p);
             }
         }catch(SQLException e){
@@ -59,16 +62,16 @@ public class DBManager {
         return res;
     }
 
-    public Poissons getPoissonsById(int id) throws SQLException{
-        Poissons p = new Poissons();
+    public Poisson getPoissonById(int id) throws SQLException{
+        Poisson p = new Poisson();
         try{
             this.stmt = this.connection.createStatement();
-            String query = "SELECT * FROM poissons WHERE id_poisson = "+ id;
+            String query = "SELECT * FROM poisson WHERE id_p = "+ id;
             ResultSet rs = stmt.executeQuery(query);
 
             rs.next();
-            String nom = rs.getString("nom_poisson");
-            p = new Poissons(id, nom);
+            String nom = rs.getString("nom_p");
+            p = new Poisson(id, nom);
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -84,14 +87,14 @@ public class DBManager {
         Explorateur explo = new Explorateur();
         try {
             this.stmt = this.connection.createStatement();
-            String query = "SELECT * FROM explorateur WHERE nom_explo = ? ";
+            String query = "SELECT * FROM explorateur WHERE nom_e = ? ";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1,n);
 
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.next();
-            int id = rs.getInt("id_explo");
+            int id = rs.getInt("id_e");
             explo = new Explorateur(id, n);
         }catch(SQLException e){
             e.printStackTrace();
@@ -104,26 +107,26 @@ public class DBManager {
         return explo;
     }
 
-    public ArrayList<Poissons> getPoissonsCapture(Explorateur explo) throws SQLException{
-        ArrayList<Poissons> res = new ArrayList<>();
+    public ArrayList<Poisson> getPoissonCapture(Explorateur explo) throws SQLException{
+        ArrayList<Poisson> res = new ArrayList<>();
         try {
             this.stmt = this.connection.createStatement();
-            String query = "SELECT Poisson.id_poisson, Poisson.nom_poisson, lvl_poisson " +
-                           "FROM Explorateur, Poisson, capturePoisson " +
-                           "WHERE Poisson.id_poissons = capturePoisson.id_poisson " +
-                           "AND capturePoisson.id_explo = explorateur.id_explo " +
-                           "AND Explorateur.id_explo = ?";
+            String query = "SELECT Poisson.id_p, Poisson.nom_p, lvl_p " +
+                           "FROM Explorateur, Poisson, capture " +
+                           "WHERE Poisson.id_p = capture.id_p " +
+                           "AND capture.id_e = explorateur.id_e " +
+                           "AND Explorateur.id_e = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1,explo.getId());
 
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()){
-                int id = rs.getInt("id_poisson");
-                String nom = rs.getString("nom_poisson");
-                int niveau = rs.getInt("lvl_poisson");
+                int id = rs.getInt("id_p");
+                String nom = rs.getString("nom_p");
+                int niveau = rs.getInt("lvl_p");
 
-                Poissons p = new Poissons(id, nom, 100,niveau);
+                Poisson p = new Poisson(id, nom, 100,niveau);
                 res.add(p);
             }
         }catch (SQLException e){

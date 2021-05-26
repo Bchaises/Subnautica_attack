@@ -2,7 +2,7 @@ package Bchaises;
 
 import java.util.ArrayList;
 
-public class Poissons {
+public class Poisson {
 
     //attributs
     private int id;
@@ -12,7 +12,7 @@ public class Poissons {
     private ArrayList<Attaque> Attaque;
 
     //constructeur par défaut
-    public Poissons(){
+    public Poisson(){
         this.id = 0;
         this.nom = "Unknown";
         this.pointDeVie = -1;
@@ -21,7 +21,7 @@ public class Poissons {
     }
 
     //constructeur
-    public Poissons(int i, String n, int p, int niv ){
+    public Poisson(int i, String n, int p, int niv ){
         this.id = i;
         this.nom = n;
         this.pointDeVie = p;
@@ -29,7 +29,7 @@ public class Poissons {
         this.Attaque = new ArrayList<>();
     }
 
-    public Poissons(int i, String n){
+    public Poisson(int i, String n){
         this.id = i;
         this.nom = n;
         this.pointDeVie = 0;
@@ -69,6 +69,6 @@ public class Poissons {
 
     public void addAttaque(Attaque a) { Attaque.add(a); }
 
-    public void attaqueSur(Poissons p, int a) { p.setPointDeVie(p.getPointDeVie() - this.Attaque.get(a).getDegats());}
+    public void attaqueSur(Poisson p, int a) { p.setPointDeVie(p.getPointDeVie() - this.Attaque.get(a).getDegats());}
 
 }

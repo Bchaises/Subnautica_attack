@@ -1,5 +1,6 @@
 package Bchaises.Test;
 
+import Bchaises.DBManager;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,6 +13,9 @@ class DBManagerTest {
 
     @Test
     void connection() {
+        DBManager bdd = new DBManager();
+        boolean res = bdd.connection();
+        assertTrue(bdd.connection(),"Connection échoué");
     }
 
     @Test
