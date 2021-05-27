@@ -62,6 +62,52 @@ public class DBManager {
         return res;
     }
 
+    public String getPoissonUrlByName(String name)throws SQLException {
+        String url;
+        String URLimage = null;
+        try {
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT image_p FROM poisson WHERE nom_p = \'" + name + "\'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            rs.next();
+            URLimage = rs.getString("image_p");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                this.stmt.close();
+            }
+        }
+
+        return URLimage;
+    }
+
+    public ArrayList<Explorateur> getAllExplorateur() throws SQLException{
+        ArrayList<Explorateur> res = new ArrayList<>();
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT * FROM explorateur";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while(rs.next()){
+                int id = rs.getInt("id_e");
+                String nom = rs.getString("nom_e");
+                Explorateur explo = new Explorateur(id, nom);
+                res.add(explo);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return res;
+    }
+
     public Poisson getPoissonById(int id) throws SQLException{
         Poisson p = new Poisson();
         try{
@@ -138,5 +184,27 @@ public class DBManager {
         }
 
         return res;
+    }
+
+    public String getExplorateurUrlByName(String name)throws SQLException {
+        String url;
+        String URLimage = null;
+        try {
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT image_e FROM explorateur WHERE nom_e = \'" + name + "\'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            rs.next();
+            URLimage = rs.getString("image_e");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                this.stmt.close();
+            }
+        }
+
+        return URLimage;
     }
 }

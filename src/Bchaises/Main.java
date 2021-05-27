@@ -1,6 +1,9 @@
 package Bchaises;
 
+import Bchaises.showPoisson.interfacePoisson;
+
 import javax.swing.*;
+import java.awt.*;
 import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +12,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-	    DBManager bdd = new DBManager();
+	    /*DBManager bdd = new DBManager();
 	    bdd.connection();
 
         ArrayList<Poisson> liste = new ArrayList<>();
@@ -32,19 +35,13 @@ public class Main {
         ArrayList<Poisson> tab = bdd.getPoissonCapture(e1);
         for (Poisson p : tab){
             System.out.println(p.getNom() + " lvl " + p.getNiveau());
-        }
+        }*/
 
-        // Déclaration de la fenêtre
-        JFrame fenetre = new JFrame();
 
-        // Configuration de la fenêtre
-        fenetre.setTitle("Ma première fenêtre Java");
-        fenetre.setSize(400,100);
-        fenetre.setLocationRelativeTo(null);
-        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // affichage de la fenêtre
-        fenetre.setVisible(true);
+        interfacePoisson window = new interfacePoisson();
+        Color myColor = Color.decode("#292D3E");
+        window.getContentPane().setBackground(myColor);
+        window.setVisible(true);
 
     }
 }
