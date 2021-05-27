@@ -1,4 +1,8 @@
 package Bchaises.showPoisson;
 
-public class interfacePoisson {
+import Bchaises.DBManager;
+import Bchaises.Poisson;
+
+public class interfacePoisson extends javax.swing.JFrame {
+
 }
