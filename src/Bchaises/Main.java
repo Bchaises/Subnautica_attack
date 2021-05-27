@@ -43,5 +43,14 @@ public class Main {
         window.getContentPane().setBackground(myColor);
         window.setVisible(true);
 
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(window);
+            //force chaque composant de la fenêtre à appeler sa méthode updateUI
+        } catch (InstantiationException e) {
+        } catch (ClassNotFoundException e) {
+        } catch (UnsupportedLookAndFeelException e) {
+        } catch (IllegalAccessException e) {}
+
     }
 }

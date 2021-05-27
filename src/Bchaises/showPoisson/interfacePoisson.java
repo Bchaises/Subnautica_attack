@@ -40,6 +40,7 @@ public class interfacePoisson extends JFrame {
         selectExplorateur1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                selectPoisson1.removeAllItems();
                 System.out.println(selectExplorateur1.getSelectedItem());
                 FillcomboPoisson(selectPoisson1, (String) selectExplorateur1.getSelectedItem());
                 showExplorateur(explorateur1,(String) selectExplorateur1.getSelectedItem());
@@ -49,6 +50,7 @@ public class interfacePoisson extends JFrame {
         selectExplorateur2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                selectPoisson2.removeAllItems();
                 System.out.println(selectExplorateur2.getSelectedItem());
                 FillcomboPoisson(selectPoisson2,(String) selectExplorateur2.getSelectedItem());
                 showExplorateur(explorateur2,(String) selectExplorateur2.getSelectedItem());
