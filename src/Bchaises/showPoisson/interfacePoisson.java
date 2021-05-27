@@ -26,6 +26,8 @@ public class interfacePoisson extends JFrame {
     private JLabel poisson2;
     private JLabel explorateur1;
     private JLabel explorateur2;
+    private JPanel panelExplorateur1;
+    private JPanel panelExplorateur2;
 
     public interfacePoisson()  {
 
@@ -140,4 +142,7 @@ public class interfacePoisson extends JFrame {
     }
 
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
