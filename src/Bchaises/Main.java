@@ -1,5 +1,6 @@
 package Bchaises;
 
+import Bchaises.showPoisson.fenetreDepart;
 import Bchaises.showPoisson.interfacePoisson;
 
 import javax.swing.*;
@@ -37,15 +38,15 @@ public class Main {
             System.out.println(p.getNom() + " lvl " + p.getNiveau());
         }*/
 
-
-        interfacePoisson window = new interfacePoisson();
-        Color myColor = Color.decode("#292D3E");
-        window.getContentPane().setBackground(myColor);
-        window.setVisible(true);
-
-        try {
             String lookAndFeel = null;
             lookAndFeel = UIManager.getSystemLookAndFeelClassName();
+
+            /*interfacePoisson window = new interfacePoisson();
+            Color myColor = Color.decode("#292D3E");
+            window.getContentPane().setBackground(myColor);
+            window.setVisible(true);
+
+        try {
             UIManager.setLookAndFeel(lookAndFeel);
             SwingUtilities.updateComponentTreeUI(window);
             //on passe au UIManager le nom complet de la classe du Look and Feel
@@ -53,6 +54,16 @@ public class Main {
         } catch (InstantiationException e) {
         } catch (ClassNotFoundException e) {
         } catch (UnsupportedLookAndFeelException e) {
-        } catch (IllegalAccessException e) {}
+        } catch (IllegalAccessException e) {}*/
+
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //Windows Look and feel
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e3) {
+            e3.printStackTrace();
+        }
+        fenetreDepart windowDepart = new fenetreDepart();
+        windowDepart.setVisible(true);
+
+
     }
 }

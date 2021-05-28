@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Bchaises.showPoisson.fenetreDepart">
+  <grid id="27dc6" binding="PanelFenetreDepart" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="702" height="553"/>
+    </constraints>
+    <properties>
+      <font name="AvenirNext LT Pro Regular"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="87cae" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="36339" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="28"/>
+              <text value="Bienvenue sur le jeu Subnautica Attack"/>
+            </properties>
+          </component>
+          <component id="b6d9a" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="18"/>
+              <text value="Combattez avec les poissons du jeu Subnautica"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="c2c4b" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="c7a06" class="javax.swing.JButton" binding="ArèneButton">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+                <preferred-size width="200" height="50"/>
+                <maximum-size width="200" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="14"/>
+              <text value="L'Arène"/>
+            </properties>
+          </component>
+          <component id="2cd29" class="javax.swing.JButton" binding="ajoutExplorateurButton">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="10" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+                <preferred-size width="200" height="50"/>
+                <maximum-size width="200" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="14"/>
+              <text value="Ajout d'un explorateur"/>
+            </properties>
+          </component>
+          <component id="bbd7c" class="javax.swing.JButton" binding="ajoutDUnPoissonButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="5" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+                <preferred-size width="200" height="50"/>
+                <maximum-size width="200" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="14"/>
+              <text value="Ajout d'un poisson"/>
+            </properties>
+          </component>
+          <component id="cd1" class="javax.swing.JButton" binding="captureDUnPoissonButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+                <preferred-size width="200" height="50"/>
+                <maximum-size width="200" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="14"/>
+              <text value="Capture d'un poisson"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <vspacer id="5858c">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="b988f">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="316d9">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+    </children>
+  </grid>
+</form>

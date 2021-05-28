@@ -17,7 +17,7 @@ public class interfacePoisson extends JFrame {
     private JComboBox selectPoisson1;
     private JComboBox selectExplorateur2;
     private JComboBox selectPoisson2;
-    private JPanel PanelDepart;
+    private JPanel PanelInterfacePoisson;
     private JButton TESTButton;
     private JLabel poisson1;
     private JLabel poisson2;
@@ -29,10 +29,11 @@ public class interfacePoisson extends JFrame {
     private JLabel niveau1;
     private JLabel pointDeVie2;
     private JLabel niveau2;
+    private JButton retourAccueilButton;
 
     public interfacePoisson()  {
 
-        add(PanelDepart);
+        add(PanelInterfacePoisson);
         setTitle("BIENVENUE!!");
         setSize(800,800);
         setLocationRelativeTo(null);
@@ -44,6 +45,8 @@ public class interfacePoisson extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectPoisson1.removeAllItems();
+                pointDeVie1.setText("");
+                niveau1.setText("");
                 System.out.println(selectExplorateur1.getSelectedItem());
                 FillcomboPoisson(selectPoisson1, (String) selectExplorateur1.getSelectedItem());
                 showExplorateur(explorateur1,(String) selectExplorateur1.getSelectedItem());
@@ -54,9 +57,12 @@ public class interfacePoisson extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectPoisson2.removeAllItems();
+                pointDeVie2.setText("");
+                niveau2.setText("");
                 System.out.println(selectExplorateur2.getSelectedItem());
                 FillcomboPoisson(selectPoisson2,(String) selectExplorateur2.getSelectedItem());
                 showExplorateur(explorateur2,(String) selectExplorateur2.getSelectedItem());
+
             }
         });
 
@@ -75,8 +81,8 @@ public class interfacePoisson extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println(selectPoisson2.getSelectedItem());
                 showPoisson(poisson2,(String) selectPoisson2.getSelectedItem());
-                showPointDeVie(pointDeVie2,(String) selectPoisson1.getSelectedItem());
-                showNiveau(niveau2,(String) selectPoisson1.getSelectedItem());
+                showPointDeVie(pointDeVie2,(String) selectPoisson2.getSelectedItem());
+                showNiveau(niveau2,(String) selectPoisson2.getSelectedItem());
             }
         });
 
@@ -84,6 +90,20 @@ public class interfacePoisson extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("attaque !!!");
+            }
+        });
+
+        retourAccueilButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                try {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //Windows Look and feel
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e3) {
+                    e3.printStackTrace();
+                }
+                fenetreDepart window = new fenetreDepart();
+                window.setVisible(true);
             }
         });
     }

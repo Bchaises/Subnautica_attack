@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Bchaises.showPoisson.interfacePoisson">
-  <grid id="27dc6" binding="PanelDepart" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="PanelInterfacePoisson" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="1011" height="719"/>
@@ -10,7 +10,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="72bb8" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="72bb8" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -20,18 +20,41 @@
         <children>
           <component id="b33a4" class="javax.swing.JButton" binding="combatButton">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+                <preferred-size width="200" height="50"/>
+                <maximum-size width="200" height="50"/>
+              </grid>
             </constraints>
             <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
               <text value="Commencer le combat"/>
             </properties>
           </component>
           <component id="4528a" class="javax.swing.JButton" binding="TESTButton" default-binding="true">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+                <preferred-size width="200" height="50"/>
+                <maximum-size width="200" height="50"/>
+              </grid>
             </constraints>
             <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
               <text value="TEST"/>
+            </properties>
+          </component>
+          <component id="6f271" class="javax.swing.JButton" binding="retourAccueilButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+                <preferred-size width="200" height="50"/>
+                <maximum-size width="200" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Retour à l'accueil"/>
             </properties>
           </component>
         </children>
@@ -78,38 +101,28 @@
                   <text value=""/>
                 </properties>
               </component>
-              <grid id="91744" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
+              <component id="161df" class="javax.swing.JLabel" binding="pointDeVie1">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none"/>
-                <children>
-                  <component id="161df" class="javax.swing.JLabel" binding="pointDeVie1">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <enabled value="true"/>
-                      <font name="AvenirNext LT Pro Regular" size="18"/>
-                      <foreground color="-14078658"/>
-                      <text value=""/>
-                    </properties>
-                  </component>
-                  <component id="5ea50" class="javax.swing.JLabel" binding="niveau1">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <enabled value="true"/>
-                      <font name="AvenirNext LT Pro Regular" size="18"/>
-                      <foreground color="-14078658"/>
-                      <text value=""/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
+                <properties>
+                  <enabled value="true"/>
+                  <font name="AvenirNext LT Pro Regular" size="18"/>
+                  <foreground color="-14078658"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="5ea50" class="javax.swing.JLabel" binding="niveau1">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                  <font name="AvenirNext LT Pro Regular" size="18"/>
+                  <foreground color="-14078658"/>
+                  <text value=""/>
+                </properties>
+              </component>
             </children>
           </grid>
           <grid id="57765" binding="panelExplorateur2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -194,16 +207,27 @@
             <children>
               <component id="6cfd3" class="javax.swing.JComboBox" binding="selectPoisson2">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="200" height="25"/>
+                    <preferred-size width="200" height="25"/>
+                    <maximum-size width="200" height="25"/>
+                  </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <font name="AvenirNext LT Pro Regular" size="16"/>
+                </properties>
               </component>
               <component id="77c12" class="javax.swing.JComboBox" binding="selectExplorateur2">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="200" height="25"/>
+                    <preferred-size width="200" height="25"/>
+                    <maximum-size width="200" height="25"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <editable value="false"/>
+                  <font name="AvenirNext LT Pro Regular" size="16"/>
                 </properties>
               </component>
             </children>
@@ -220,21 +244,32 @@
             <properties/>
             <border type="none"/>
             <children>
+              <component id="d39ca" class="javax.swing.JComboBox" binding="selectPoisson1">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="200" height="25"/>
+                    <preferred-size width="200" height="25"/>
+                    <maximum-size width="200" height="25"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="AvenirNext LT Pro Regular" size="16"/>
+                </properties>
+              </component>
               <component id="5e2b2" class="javax.swing.JComboBox" binding="selectExplorateur1">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="200" height="25"/>
+                    <preferred-size width="200" height="25"/>
+                    <maximum-size width="200" height="25"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <editable value="false"/>
+                  <font name="AvenirNext LT Pro Regular" size="16"/>
                   <model/>
                   <visible value="true"/>
                 </properties>
-              </component>
-              <component id="d39ca" class="javax.swing.JComboBox" binding="selectPoisson1">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
               </component>
             </children>
           </grid>
