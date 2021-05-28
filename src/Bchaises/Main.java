@@ -44,13 +44,15 @@ public class Main {
         window.setVisible(true);
 
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            String lookAndFeel = null;
+            lookAndFeel = UIManager.getSystemLookAndFeelClassName();
+            UIManager.setLookAndFeel(lookAndFeel);
             SwingUtilities.updateComponentTreeUI(window);
-            //force chaque composant de la fenêtre à appeler sa méthode updateUI
+            //on passe au UIManager le nom complet de la classe du Look and Feel
+            //naturellement, celle-ci doit être disponible dans le CLASSPATH
         } catch (InstantiationException e) {
         } catch (ClassNotFoundException e) {
         } catch (UnsupportedLookAndFeelException e) {
         } catch (IllegalAccessException e) {}
-
     }
 }

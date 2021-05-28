@@ -5,7 +5,6 @@ import Bchaises.Explorateur;
 import Bchaises.Poisson;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -13,21 +12,23 @@ import java.util.ArrayList;
 
 public class interfacePoisson extends JFrame {
 
-    private JButton attaquerButton;
-    private JButton attaquerButton1;
+    private JButton combatButton;
     private JComboBox selectExplorateur1;
     private JComboBox selectPoisson1;
     private JComboBox selectExplorateur2;
     private JComboBox selectPoisson2;
     private JPanel PanelDepart;
-    private JButton button1;
-    private JButton button3;
+    private JButton TESTButton;
     private JLabel poisson1;
     private JLabel poisson2;
     private JLabel explorateur1;
     private JLabel explorateur2;
     private JPanel panelExplorateur1;
     private JPanel panelExplorateur2;
+    private JLabel pointDeVie1;
+    private JLabel niveau1;
+    private JLabel pointDeVie2;
+    private JLabel niveau2;
 
     public interfacePoisson()  {
 
@@ -64,6 +65,8 @@ public class interfacePoisson extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println(selectPoisson1.getSelectedItem());
                 showPoisson(poisson1,(String) selectPoisson1.getSelectedItem());
+                showPointDeVie(pointDeVie1,(String) selectPoisson1.getSelectedItem());
+                showNiveau(niveau1,(String) selectPoisson1.getSelectedItem());
             }
         });
 
@@ -72,10 +75,12 @@ public class interfacePoisson extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println(selectPoisson2.getSelectedItem());
                 showPoisson(poisson2,(String) selectPoisson2.getSelectedItem());
+                showPointDeVie(pointDeVie2,(String) selectPoisson1.getSelectedItem());
+                showNiveau(niveau2,(String) selectPoisson1.getSelectedItem());
             }
         });
 
-        attaquerButton.addActionListener(new ActionListener() {
+        combatButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("attaque !!!");
@@ -144,5 +149,37 @@ public class interfacePoisson extends JFrame {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+    }
+
+    private void showPointDeVie(JLabel pointDeVieLabel, String nom){
+        DBManager bdd = new DBManager();
+        bdd.connection();
+        Poisson p = new Poisson();
+        String pointDeVie = null;
+
+        try {
+            p = bdd.getPoissonByName(nom);
+            pointDeVie = Integer.toString(p.getPointDeVie());
+            pointDeVieLabel.setText("Points de vie : " + pointDeVie);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void showNiveau(JLabel niveauLabel, String nom){
+        DBManager bdd = new DBManager();
+        bdd.connection();
+        Poisson p = new Poisson();
+        String niveau = null;
+
+        try {
+            p = bdd.getPoissonByName(nom);
+            niveau = Integer.toString(p.getNiveau());
+            niveauLabel.setText("Niveau : " + niveau);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

@@ -129,6 +129,30 @@ public class DBManager {
         return p;
     }
 
+    public Poisson getPoissonByName(String nom) throws SQLException{
+        Poisson p = new Poisson();
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT * FROM poisson WHERE nom_p = \'"+ nom + "\'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            rs.next();
+            int id = rs.getInt("id_p");
+            int pointDeVie = rs.getInt("pv_p");
+            int niveau = rs.getInt("lvl_p");
+            String image = rs.getString("image_p");
+            p = new Poisson(id, nom,pointDeVie, niveau,image);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return p;
+    }
+
     public Explorateur getExplorateurByName(String n) throws SQLException{
         Explorateur explo = new Explorateur();
         try {
@@ -141,7 +165,8 @@ public class DBManager {
 
             rs.next();
             int id = rs.getInt("id_e");
-            explo = new Explorateur(id, n);
+            String image = rs.getString("image_e");
+            explo = new Explorateur(id, n,image);
         }catch(SQLException e){
             e.printStackTrace();
         }finally{

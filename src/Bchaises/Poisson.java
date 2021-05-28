@@ -9,6 +9,7 @@ public class Poisson {
     private String nom;
     private int pointDeVie;
     private int niveau;
+    private String image;
     private ArrayList<Attaque> Attaque;
 
     //constructeur par défaut
@@ -17,6 +18,7 @@ public class Poisson {
         this.nom = "Unknown";
         this.pointDeVie = -1;
         this.niveau = -1;
+        this.image = "Unknown";
         this.Attaque = new ArrayList<>();
     }
 
@@ -26,6 +28,15 @@ public class Poisson {
         this.nom = n;
         this.pointDeVie = p;
         this.niveau = niv;
+        this.Attaque = new ArrayList<>();
+    }
+
+    public Poisson(int i, String n, int p, int niv ,String image){
+        this.id = i;
+        this.nom = n;
+        this.pointDeVie = p;
+        this.niveau = niv;
+        this.image = image;
         this.Attaque = new ArrayList<>();
     }
 
@@ -42,6 +53,7 @@ public class Poisson {
     public String getNom(){ return this.nom; }
     public int getPointDeVie(){ return this.pointDeVie; }
     public int getNiveau(){ return this.niveau; }
+    public String getImage(){ return this.image; }
     public ArrayList getAttaque(){ return this.Attaque; }
 
     //setter
@@ -50,6 +62,7 @@ public class Poisson {
     public void setNom(String n){ this.nom = n; }
     public void setPointDeVie(int p){ this.pointDeVie = p; }
     public void setNiveau(int niv){ this.niveau = niv; }
+    public void setImage(String image) { this.image = image; }
     public void setAttaque(ArrayList Attaque){ this.Attaque = Attaque; }
 
     @Override
