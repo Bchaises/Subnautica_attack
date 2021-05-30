@@ -1,5 +1,8 @@
 package Bchaises;
 
+import com.mysql.cj.protocol.Resultset;
+
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.sql.Connection;
@@ -89,6 +92,30 @@ public class DBManager {
         try{
             this.stmt = this.connection.createStatement();
             String query = "SELECT * FROM explorateur";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while(rs.next()){
+                int id = rs.getInt("id_e");
+                String nom = rs.getString("nom_e");
+                Explorateur explo = new Explorateur(id, nom);
+                res.add(explo);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return res;
+    }
+
+    public ArrayList<Explorateur> getAllExplorateurFull() throws SQLException{
+        ArrayList<Explorateur> res = new ArrayList<>();
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT explorateur.id_e,explorateur.nom_e, explorateur.image_e FROM explorateur, capture WHERE explorateur.id_e = capture.id_e GROUP BY capture.id_e";
             ResultSet rs = stmt.executeQuery(query);
 
             while(rs.next()){
@@ -231,5 +258,92 @@ public class DBManager {
         }
 
         return URLimage;
+    }
+
+    public void addExplorateur(String nom, String url) throws SQLException{
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "INSERT INTO explorateur VALUES(NULL,\'" + nom + "\', \'" + url + "\')";
+            stmt.executeUpdate(query);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+    }
+
+    public void addPoisson(String nom, String url) throws SQLException{
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "INSERT INTO poisson VALUES(NULL,\'" + nom + "\',100,1 ,\'" + url + "\')";
+            stmt.executeUpdate(query);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+    }
+
+    public int getIdPoissonByName(String nom) throws SQLException {
+        int id = 0;
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT id_p FROM poisson WHERE nom_p = \'" + nom + "\'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            rs.next();
+            id = rs.getInt("id_p");
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return id;
+    }
+
+    public int getIdExplorateurByName(String nom) throws SQLException {
+        int id = 0;
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT id_e FROM explorateur WHERE nom_e = \'" + nom + "\'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            rs.next();
+            id = rs.getInt("id_e");
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return id;
+    }
+
+    public void addCapturePoisson(int id_p, int id_e) throws SQLException {
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "INSERT INTO capture VALUES(\'" + id_e + "\',\'" + id_p + "\')";
+            stmt.executeUpdate(query);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
     }
 }

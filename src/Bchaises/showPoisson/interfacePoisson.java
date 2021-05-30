@@ -113,7 +113,7 @@ public class interfacePoisson extends JFrame {
         bdd.connection();
         try {
             ArrayList<Explorateur> e1 = new ArrayList<Explorateur>();
-            e1 = bdd.getAllExplorateur();
+            e1 = bdd.getAllExplorateurFull();
             for (int ii = 0 ; ii < e1.size(); ii++){
                 combobox.addItem(e1.get(ii).getNom());
             }
@@ -164,11 +164,6 @@ public class interfacePoisson extends JFrame {
             e.printStackTrace();
         }
 
-    }
-
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
     }
 
     private void showPointDeVie(JLabel pointDeVieLabel, String nom){

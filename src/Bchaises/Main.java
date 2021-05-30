@@ -61,9 +61,7 @@ public class Main {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e3) {
             e3.printStackTrace();
         }
-        fenetreDepart windowDepart = new fenetreDepart();
-        windowDepart.setVisible(true);
-
-
+        fenetreDepart window = new fenetreDepart();
+        window.setVisible(true);
     }
 }
