@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Bchaises.showPoisson.AjoutAttaque">
+  <grid id="27dc6" binding="PanelAjoutAttaque" layout-manager="GridLayoutManager" row-count="7" column-count="12" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1121" height="736"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="8f042" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="10" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="c2336" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="28"/>
+              <text value="Ajout et apprentissage d'une attaque"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="ba8a0" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="6" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="bcc2b" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Nom : "/>
+            </properties>
+          </component>
+          <component id="bb47d" class="javax.swing.JTextField" binding="textFieldName">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="100" height="-1"/>
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+            </properties>
+          </component>
+          <component id="97844" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Dégats : "/>
+            </properties>
+          </component>
+          <component id="914e" class="javax.swing.JTextField" binding="textFieldDegats">
+            <constraints>
+              <grid row="2" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="100" height="-1"/>
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+            </properties>
+          </component>
+          <vspacer id="a1fd8">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="e08f0" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Ajout"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="b6a8" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="3" column="7" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="451b7" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Explorateur : "/>
+            </properties>
+          </component>
+          <component id="c6c09" class="javax.swing.JComboBox" binding="comboBoxExplorateur">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+            </properties>
+          </component>
+          <component id="58d17" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Poisson : "/>
+            </properties>
+          </component>
+          <component id="c0de" class="javax.swing.JComboBox" binding="comboBoxPoisson">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+            </properties>
+          </component>
+          <component id="bd68d" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Attaque : "/>
+            </properties>
+          </component>
+          <component id="abb6c" class="javax.swing.JComboBox" binding="comboBoxAttaque">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+            </properties>
+          </component>
+          <grid id="18412" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="2" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="400" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="f8864" class="javax.swing.JTextArea" binding="attentionPlusLesDégatsTextArea" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="2" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="100"/>
+                    <preferred-size width="400" height="100"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-986896"/>
+                  <editable value="false"/>
+                  <enabled value="true"/>
+                  <font name="AvenirNext LT Pro Regular" size="16"/>
+                  <foreground color="-16777216"/>
+                  <lineWrap value="true"/>
+                  <text value="Attention plus les dégats de l'attaque sont élevés, plusle risque de rater l'apprentissage et de prendre des  dommages sur le poisson est élevé"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="fe093" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Apprentissage"/>
+            </properties>
+          </component>
+          <component id="91eb0" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Dégats : "/>
+            </properties>
+          </component>
+          <component id="814c4" class="javax.swing.JLabel" binding="JLabelDegats">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="-"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <vspacer id="a2273">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="10" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="5bee0">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="10" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="d94a1">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="10" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <grid id="1971f" layout-manager="GridLayoutManager" row-count="2" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="10" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="4f1a9" class="javax.swing.JButton" binding="apprendreLAttaqueButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Apprendre l'attaque"/>
+            </properties>
+          </component>
+          <component id="50bf5" class="javax.swing.JButton" binding="retourAccueilButton">
+            <constraints>
+              <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Retour à l'accueil"/>
+            </properties>
+          </component>
+          <component id="948ee" class="javax.swing.JButton" binding="ajouterAttaqueButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value="Ajouter l'attaque"/>
+            </properties>
+          </component>
+          <component id="7f849" class="javax.swing.JLabel" binding="JLabelApprentissage">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="AvenirNext LT Pro Regular" size="16"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <vspacer id="379e7">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="10" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <hspacer id="63b3">
+        <constraints>
+          <grid row="0" column="11" row-span="7" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <hspacer id="c445d">
+        <constraints>
+          <grid row="0" column="0" row-span="7" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+    </children>
+  </grid>
+</form>

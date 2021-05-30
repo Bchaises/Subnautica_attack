@@ -11,6 +11,7 @@ public class fenetreDepart extends JFrame{
     private JButton ajoutExplorateurButton;
     private JButton ajoutPoissonButton;
     private JButton captureDUnPoissonButton;
+    private JButton ajoutDUneAttaqueButton;
 
     public fenetreDepart(){
 
@@ -72,6 +73,20 @@ public class fenetreDepart extends JFrame{
                     e3.printStackTrace();
                 }
                 CapturePoisson window = new CapturePoisson();
+                window.setVisible(true);
+            }
+        });
+
+        ajoutDUneAttaqueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                try {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //Windows Look and feel
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e3) {
+                    e3.printStackTrace();
+                }
+                AjoutAttaque window = new AjoutAttaque();
                 window.setVisible(true);
             }
         });

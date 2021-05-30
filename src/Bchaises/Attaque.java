@@ -14,6 +14,12 @@ public class Attaque {
         this.degats = -1;
     }
 
+    public Attaque(int i, String n, int d){
+        this.id = i;
+        this.nom = n;
+        this.degats = d;
+    }
+
     //accesseurs
 
     //getter

@@ -346,4 +346,92 @@ public class DBManager {
             }
         }
     }
+
+    public void addAttaque(String name, int degats) throws SQLException {
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "INSERT INTO attaque VALUES (NULL, \'" + name + "\', \'" + degats + "\')";
+            stmt.executeUpdate(query);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+    }
+
+    public ArrayList<Attaque> getAllAttaque() throws SQLException {
+        ArrayList<Attaque> tab_a = new ArrayList<>();
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT * FROM attaque";
+            ResultSet rs = stmt.executeQuery(query);
+
+            int id = 0;
+            String nom = null;
+            int degats = 0;
+
+            while(rs.next()){
+                id = rs.getInt("id_a");
+                nom = rs.getString("nom_a");
+                degats = rs.getInt("degat_a");
+
+                Attaque a = new Attaque(id,nom,degats);
+                tab_a.add(a);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return tab_a;
+    }
+
+    public void addPossedeAttaque(int id_p, int id_a) throws SQLException {
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "INSERT INTO possedeAttaque VALUES(" + id_p + ", " + id_a + ")";
+            stmt.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+    }
+
+    public Attaque getAttaqueByName(String n) throws SQLException{
+        Attaque a = new Attaque();
+        int id = 0;
+        String nom = null;
+        int degats = 0;
+
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT * FROM attaque WHERE nom_a = \'" + n + "\'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            rs.next();
+            id = rs.getInt("id_a");
+            nom = rs.getString("nom_a");
+            degats = rs.getInt("degat_a");
+
+            a = new Attaque(id, nom, degats);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return a;
+    }
+
 }
