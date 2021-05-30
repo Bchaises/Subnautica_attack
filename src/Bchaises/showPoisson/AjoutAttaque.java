@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class AjoutAttaque extends JFrame{
     private JPanel PanelAjoutAttaque;
@@ -102,37 +104,70 @@ public class AjoutAttaque extends JFrame{
 
             }
         });
+
         apprendreLAttaqueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DBManager bdd = new DBManager();
                 bdd.connection();
 
+                int random = (int) (Math.random() * ((Integer.parseInt(JLabelDegats.getText()) * 100) + 1));
+                boolean possede = false;
                 Poisson p = new Poisson();
                 Attaque a = new Attaque();
+                Explorateur explo = new Explorateur();
+                try {
+                    p = bdd.getPoissonByName((String) comboBoxPoisson.getSelectedItem());
+                    a = bdd.getAttaqueByName( (String) comboBoxAttaque.getSelectedItem());
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
 
-                int random = (int) (Math.random() * ((Integer.parseInt(JLabelDegats.getText())) + 1));
-                System.out.println(random);
+                ArrayList<String> tab_n = new ArrayList<>();
+                try {
+                    tab_n = bdd.getAttaqueWithName((String) comboBoxExplorateur.getSelectedItem(), (String) comboBoxPoisson.getSelectedItem());
 
-                if (random >= 0 && random <= Integer.parseInt(JLabelDegats.getText()) * 0.3){
-                    
-                    if ()
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
 
-                    JLabelApprentissage.setText("Apprentissage réussi");
-                    JLabelApprentissage.setForeground(new Color(0, 127, 0));
+                for (int ii = 0; ii < tab_n.size(); ii++) {
 
-                    try {
-                        p = bdd.getPoissonByName((String) comboBoxPoisson.getSelectedItem());
-                        a = bdd.getAttaqueByName( (String) comboBoxAttaque.getSelectedItem());
-                        bdd.addPossedeAttaque(p.getId(), a.getId() );
+                    if (comboBoxAttaque.getSelectedItem().toString().equals(tab_n.get(ii))) {
+                        possede = true;
+                        break;
+                    }
+                }
 
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                if ( !possede || tab_n.size() == 0){
+                    if (random >= 0 && random <= Integer.parseInt(JLabelDegats.getText())){
+
+                        JLabelApprentissage.setText("Apprentissage réussi!");
+                        JLabelApprentissage.setForeground(new Color(0, 127, 0));
+
+                        try {
+                            explo = bdd.getExplorateurByName( (String) comboBoxExplorateur.getSelectedItem());
+                            bdd.addPossedeAttaque(explo.getId(), p.getId(), a.getId() );
+
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                    }else{
+                        JLabelApprentissage.setText("Apprentissage échoué!");
+                        JLabelApprentissage.setForeground(new Color(255,0,0));
+                        try {
+                            bdd.setPointDeVie(p.getPointDeVie() - 5, p.getId());
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
                     }
                 }else{
-                    JLabelApprentissage.setText("Apprentissage échoué");
+                    JLabelApprentissage.setText("Votre poisson possède déjà cette attaque.");
                     JLabelApprentissage.setForeground(new Color(255,0,0));
                 }
+
+
             }
         });
     }

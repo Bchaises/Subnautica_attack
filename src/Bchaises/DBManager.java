@@ -391,10 +391,10 @@ public class DBManager {
         return tab_a;
     }
 
-    public void addPossedeAttaque(int id_p, int id_a) throws SQLException {
+    public void addPossedeAttaque(int id_e, int id_p, int id_a) throws SQLException {
         try{
             this.stmt = this.connection.createStatement();
-            String query = "INSERT INTO possedeAttaque VALUES(" + id_p + ", " + id_a + ")";
+            String query = "INSERT INTO possedeAttaque VALUES(NULL," + id_e + "," + id_p + ", " + id_a + ")";
             stmt.executeUpdate(query);
         }catch(SQLException e){
             e.printStackTrace();
@@ -432,6 +432,50 @@ public class DBManager {
         }
 
         return a;
+    }
+
+    public ArrayList<String> getAttaqueWithName( String eName, String pName) throws SQLException{
+        ArrayList<String> tab_n = new ArrayList<>();
+        String nom_attaque;
+
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT attaque.nom_a " +
+                    "FROM attaque ,possedeattaque,poisson,explorateur " +
+                    "WHERE possedeattaque.id_p = poisson.id_p " +
+                    "AND possedeattaque.id_e = explorateur.id_e " +
+                    "AND attaque.id_a = possedeattaque.id_a " +
+                    "AND explorateur.nom_e = \'" + eName + "\' " +
+                    "AND poisson.nom_p = \'" + pName + "\'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while(rs.next()){
+                nom_attaque = rs.getString("nom_a");
+                tab_n.add(nom_attaque);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return tab_n;
+    }
+
+    public void setPointDeVie(int PointDeVie, int id_p) throws SQLException {
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "UPDATE poisson SET pv_p = \'" + PointDeVie + "\' WHERE poisson.id_p = \'" + id_p + "\'";
+            stmt.executeUpdate(query);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
     }
 
 }
