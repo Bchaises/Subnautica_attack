@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class interfacePoisson extends JFrame {
 
@@ -45,28 +46,37 @@ public class interfacePoisson extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         FillcomboExplo(selectExplorateur1);
         FillcomboExplo(selectExplorateur2);
+        combatButton.setEnabled(false);
 
         selectExplorateur1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                combatButton.setEnabled(true);
                 selectPoisson1.removeAllItems();
                 pointDeVie1.setText("");
                 niveau1.setText("");
                 System.out.println(selectExplorateur1.getSelectedItem());
-                FillcomboPoisson(selectPoisson1, (String) selectExplorateur1.getSelectedItem());
-                showExplorateur(explorateur1,(String) selectExplorateur1.getSelectedItem());
+
+                if (selectExplorateur1.getSelectedItem() != null){
+                    FillcomboPoisson(selectPoisson1, (String) selectExplorateur1.getSelectedItem());
+                    showExplorateur(explorateur1,(String) selectExplorateur1.getSelectedItem());
+                }
             }
         });
 
         selectExplorateur2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                combatButton.setEnabled(true);
                 selectPoisson2.removeAllItems();
                 pointDeVie2.setText("");
                 niveau2.setText("");
                 System.out.println(selectExplorateur2.getSelectedItem());
-                FillcomboPoisson(selectPoisson2,(String) selectExplorateur2.getSelectedItem());
-                showExplorateur(explorateur2,(String) selectExplorateur2.getSelectedItem());
+
+                if (selectExplorateur2.getSelectedItem() != null){
+                    FillcomboPoisson(selectPoisson2,(String) selectExplorateur2.getSelectedItem());
+                    showExplorateur(explorateur2,(String) selectExplorateur2.getSelectedItem());
+                }
 
             }
         });
@@ -75,12 +85,16 @@ public class interfacePoisson extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 comboBoxAttaque1.removeAllItems();
-                System.out.println(selectPoisson1.getSelectedItem());
-                showPoisson(poisson1,(String) selectPoisson1.getSelectedItem());
-                showPointDeVie(pointDeVie1,(String) selectPoisson1.getSelectedItem());
-                showNiveau(niveau1,(String) selectPoisson1.getSelectedItem());
+
+                if (selectPoisson1.getSelectedItem() != null){
+                    showPoisson(poisson1,(String) selectPoisson1.getSelectedItem());
+                    showPointDeVie(pointDeVie1,(String) selectPoisson1.getSelectedItem());
+                    showNiveau(niveau1,(String) selectPoisson1.getSelectedItem());
+                }
                 try {
-                    FillcomboAttaque(comboBoxAttaque1,(String) selectExplorateur1.getSelectedItem(),(String) selectPoisson1.getSelectedItem());
+                    if (selectExplorateur1.getSelectedItem() != null && selectPoisson1.getSelectedItem() != null){
+                        FillcomboAttaque(comboBoxAttaque1,(String) selectExplorateur1.getSelectedItem(),(String) selectPoisson1.getSelectedItem());
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -91,12 +105,16 @@ public class interfacePoisson extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 comboBoxAttaque2.removeAllItems();
-                System.out.println(selectPoisson2.getSelectedItem());
-                showPoisson(poisson2,(String) selectPoisson2.getSelectedItem());
-                showPointDeVie(pointDeVie2,(String) selectPoisson2.getSelectedItem());
-                showNiveau(niveau2,(String) selectPoisson2.getSelectedItem());
+                if (selectPoisson2.getSelectedItem() != null){
+                    System.out.println(selectPoisson2.getSelectedItem());
+                    showPoisson(poisson2,(String) selectPoisson2.getSelectedItem());
+                    showPointDeVie(pointDeVie2,(String) selectPoisson2.getSelectedItem());
+                    showNiveau(niveau2,(String) selectPoisson2.getSelectedItem());
+                }
                 try {
-                    FillcomboAttaque(comboBoxAttaque2,(String) selectExplorateur2.getSelectedItem(),(String) selectPoisson2.getSelectedItem());
+                    if (selectExplorateur2.getSelectedItem() != null && selectPoisson2.getSelectedItem() != null){
+                        FillcomboAttaque(comboBoxAttaque2,(String) selectExplorateur2.getSelectedItem(),(String) selectPoisson2.getSelectedItem());
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -112,58 +130,98 @@ public class interfacePoisson extends JFrame {
 
 
                 boolean fin = false;
-                while (!fin){
+
+                if (!selectExplorateur1.getSelectedItem().toString().equals(selectExplorateur2.getSelectedItem().toString())){
+                    while (!fin){
+
+                        Poisson p1 = new Poisson();
+                        Poisson p2 = new Poisson();
+                        Attaque a1 = new Attaque();
+                        Attaque a2 = new Attaque();
+                        Explorateur e1 = new Explorateur();
+                        Explorateur e2 = new Explorateur();
+
+                        try {
+                            p1 = bdd.getPoissonByName( selectPoisson1.getSelectedItem().toString() );
+                            p2 = bdd.getPoissonByName( selectPoisson2.getSelectedItem().toString() ) ;
+
+                            a1 = bdd.getAttaqueByName( comboBoxAttaque1.getSelectedItem().toString());
+                            a2 = bdd.getAttaqueByName( comboBoxAttaque2.getSelectedItem().toString());
+
+                            e1 = bdd.getExplorateurByName( selectExplorateur1.getSelectedItem().toString());
+                            e2 = bdd.getExplorateurByName( selectExplorateur2.getSelectedItem().toString());
+
+                            p1.addAttaque(a1);
+                            p2.addAttaque(a2);
+
+                            p1.attaqueSur(p2,0);
+                            bdd.setPointDeVie(p2.getPointDeVie(), p2.getId());
+
+                            if (p2.getPointDeVie() <= 0){
+                                JLabelMessageDéfaite.setText(e2.getNom() + " votre poisson " + p2.getNom() + " est mort! Il sera remis à zéro.");
+                                JLabelMessageDéfaite.setForeground(new Color(255,0,0));
+
+                                JLabelMessageVictoire.setText(e1.getNom() + " votre poisson " + p1.getNom() + " a gagné! Il gagne 1 niveau et 100 de vie!");
+                                JLabelMessageVictoire.setForeground(new Color(0,127,0));
+
+                                bdd.resetPoisson(p2.getNom());
+                                bdd.upgradePoisson(p1.getNom(), p1.getNiveau(), p1.getPointDeVie());
+
+                                if (selectPoisson1.getSelectedItem() != null){
+                                    showPointDeVie(pointDeVie1,(String) selectPoisson1.getSelectedItem());
+                                    showNiveau(niveau1,(String) selectPoisson1.getSelectedItem());
+                                }else{
+                                    pointDeVie1.setText("-");
+                                }
 
 
-                    Poisson p1 = new Poisson();
-                    Poisson p2 = new Poisson();
-                    Attaque a1 = new Attaque();
-                    Attaque a2 = new Attaque();
-                    Explorateur e1 = new Explorateur();
-                    Explorateur e2 = new Explorateur();
+                                comboBoxAttaque2.removeAllItems();
+                                selectPoisson2.removeAllItems();
+                                selectExplorateur2.removeAllItems();
 
-                    try {
-                        p1 = bdd.getPoissonByName( selectPoisson1.getSelectedItem().toString() );
-                        p2 = bdd.getPoissonByName( selectPoisson2.getSelectedItem().toString() ) ;
+                                FillcomboExplo(selectExplorateur2);
+                                fin = true;
+                            }
 
-                        a1 = bdd.getAttaqueByName( comboBoxAttaque1.getSelectedItem().toString());
-                        a2 = bdd.getAttaqueByName( comboBoxAttaque2.getSelectedItem().toString());
+                            p2.attaqueSur(p1,0);
+                            bdd.setPointDeVie(p1.getPointDeVie(), p1.getId());
 
-                        e1 = bdd.getExplorateurByName( selectExplorateur1.getSelectedItem().toString());
-                        e2 = bdd.getExplorateurByName( selectExplorateur2.getSelectedItem().toString());
+                            if(p1.getPointDeVie() <= 0){
+                                JLabelMessageDéfaite.setText(e1.getNom() + " votre poisson " + p1.getNom() + " est mort! Il sera remis à zéro.");
+                                JLabelMessageDéfaite.setForeground(new Color(255,0,0));
 
-                        p1.addAttaque(a1);
-                        p2.addAttaque(a2);
+                                JLabelMessageVictoire.setText(e2.getNom() + " votre poisson " + p2.getNom() + " a gagné! Il gagne 1 niveau et 100 de vie!");
+                                JLabelMessageVictoire.setForeground(new Color(0,127,0));
 
-                        p1.attaqueSur(p2,0);
-                        bdd.setPointDeVie(p2.getPointDeVie(), p2.getId());
+                                bdd.resetPoisson(p1.getNom());
+                                bdd.upgradePoisson(p2.getNom(), p2.getNiveau(), p2.getPointDeVie());
 
-                        if (p2.getPointDeVie() <= 0){
-                            JLabelMessageDéfaite.setText(e2.getNom() + " votre poisson " + p2.getNom() + " est mort! Il sera remis à zéro.");
-                            JLabelMessageDéfaite.setForeground(new Color(255,0,0));
+                                if (selectPoisson2.getSelectedItem() != null){
+                                    showPointDeVie(pointDeVie2,(String) selectPoisson2.getSelectedItem());
+                                    showNiveau(niveau2,(String) selectPoisson2.getSelectedItem());
+                                }else{
+                                    pointDeVie2.setText("-");
+                                }
 
-                            JLabelMessageVictoire.setText(e1.getNom() + " votre poisson " + p1.getNom() + " a gagné! Il gagne 1 niveau et 100 de vie!");
-                            JLabelMessageVictoire.setForeground(new Color(0,127,0));
+                                comboBoxAttaque1.removeAllItems();
+                                selectPoisson1.removeAllItems();
+                                selectExplorateur1.removeAllItems();
 
-                            fin = true;
+                                FillcomboExplo(selectExplorateur1);
+
+                                fin = true;
+                            }
+
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
                         }
-                        p2.attaqueSur(p1,0);
-                        bdd.setPointDeVie(p1.getPointDeVie(), p1.getId());
-
-                        if(p1.getPointDeVie() <= 0){
-                            JLabelMessageDéfaite.setText(e1.getNom() + " votre poisson " + p1.getNom() + " est mort! Il sera remis à zéro.");
-                            JLabelMessageDéfaite.setForeground(new Color(255,0,0));
-
-                            JLabelMessageVictoire.setText(e2.getNom() + " votre poisson " + p2.getNom() + " a gagné! Il gagne 1 niveau et 100 de vie!");
-                            JLabelMessageVictoire.setForeground(new Color(0,127,0));
-
-                            fin = true;
-                        }
-
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
                     }
+                }else{
+                    JLabelMessageVictoire.setText("Vous ne pouvez pas vous combattre vous-même");
                 }
+
+                combatButton.setEnabled(true);
+
             }
         });
 
@@ -181,6 +239,18 @@ public class interfacePoisson extends JFrame {
             }
         });
 
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (comboBoxAttaque1.getSelectedItem() != null && comboBoxAttaque2.getSelectedItem() != null){
+                    combatButton.setEnabled(true);
+                }
+            }
+        };
+        comboBoxAttaque2.addActionListener(listener);
+        comboBoxAttaque1.addActionListener(listener);
+
+
     }
 
     private void FillcomboExplo(JComboBox combobox){
@@ -189,6 +259,20 @@ public class interfacePoisson extends JFrame {
         try {
             ArrayList<Explorateur> e1 = new ArrayList<Explorateur>();
             e1 = bdd.getAllExplorateurFull();
+            for (int ii = 0 ; ii < e1.size(); ii++){
+                combobox.addItem(e1.get(ii).getNom());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void FillcomboExploWithout(JComboBox combobox, String nom){
+        DBManager bdd = new DBManager();
+        bdd.connection();
+        try {
+            ArrayList<Explorateur> e1 = new ArrayList<Explorateur>();
+            e1 = bdd.getAllExplorateurFullWithout(nom);
             for (int ii = 0 ; ii < e1.size(); ii++){
                 combobox.addItem(e1.get(ii).getNom());
             }

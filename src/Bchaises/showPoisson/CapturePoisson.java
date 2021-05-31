@@ -23,8 +23,8 @@ public class CapturePoisson extends JFrame{
         setSize(800,800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        FillcomboPoisson(comboBox2);
         FillcomboExplo(comboBox1);
+        capturerButton.setEnabled(false);
 
         retourÀLAccueilButton.addActionListener(new ActionListener() {
             @Override
@@ -61,18 +61,37 @@ public class CapturePoisson extends JFrame{
                     throwables.printStackTrace();
                 }
 
+                comboBox2.removeAllItems();
+                FillcomboPoisson(comboBox2);
+            }
+        });
 
+        comboBox1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("coucou");
+                comboBox2.removeAllItems();
+                FillcomboPoisson(comboBox2);
+            }
+        });
+
+        comboBox2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                capturerButton.setEnabled(true);
             }
         });
     }
 
     private void FillcomboPoisson(JComboBox combobox){
+
         DBManager bdd = new DBManager();
         bdd.connection();
         try {
             ArrayList<Poisson> p1 = new ArrayList<Poisson>();
-            p1 = bdd.getAllPoisson();
+            p1 = bdd.getAllPoissonFull();
             for (int ii = 0 ; ii < p1.size(); ii++){
+                System.out.println(p1.get(ii).getNom());
                 combobox.addItem(p1.get(ii).getNom());
             }
         }catch (Exception e){

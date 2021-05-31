@@ -135,6 +135,55 @@ public class DBManager {
         return res;
     }
 
+    public ArrayList<Explorateur> getAllExplorateurFullWithout(String nom_e) throws SQLException{
+        ArrayList<Explorateur> res = new ArrayList<>();
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT explorateur.id_e,explorateur.nom_e, explorateur.image_e FROM explorateur, capture WHERE explorateur.id_e = capture.id_e AND explorateur.nom_e NOT LIKE \'" + nom_e +  "\' GROUP BY capture.id_e";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while(rs.next()){
+                int id = rs.getInt("id_e");
+                String nom = rs.getString("nom_e");
+                Explorateur explo = new Explorateur(id, nom);
+                res.add(explo);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return res;
+    }
+
+    public ArrayList<Poisson> getAllPoissonFull() throws SQLException{
+        ArrayList<Poisson> res = new ArrayList<>();
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "SELECT * FROM poisson WHERE poisson.id_p NOT IN (SELECT capture.id_p FROM capture);";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while(rs.next()){
+                int id = rs.getInt("id_p");
+                String nom = rs.getString("nom_p");
+                Poisson p = new Poisson(id, nom);
+                res.add(p);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+
+        return res;
+    }
+
+
     public Poisson getPoissonById(int id) throws SQLException{
         Poisson p = new Poisson();
         try{
@@ -470,6 +519,54 @@ public class DBManager {
             String query = "UPDATE poisson SET pv_p = \'" + PointDeVie + "\' WHERE poisson.id_p = \'" + id_p + "\'";
             stmt.executeUpdate(query);
         }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+    }
+
+    public void resetPoisson(String name) throws SQLException {
+        try{
+            this.stmt = this.connection.createStatement();
+            String query1 = "DELETE " +
+                           "FROM capture " +
+                           "WHERE id_p = " +
+                           "(SELECT id_p FROM poisson WHERE nom_p = \'" + name + "\')";
+            stmt.executeUpdate(query1);
+
+            String query2 = "UPDATE poisson SET pv_p = 100 WHERE nom_p = \'" + name + "\'";
+            stmt.executeUpdate(query2);
+
+            String query3 = "UPDATE poisson SET lvl_p = 1 WHERE nom_p = \'" + name + "\'";
+            stmt.executeUpdate(query3);
+
+            String query4 = "DELETE " +
+                    "FROM possedeattaque " +
+                    "WHERE id_p = " +
+                    "(SELECT id_p FROM poisson WHERE nom_p = \'" + name + "\')";
+            stmt.executeUpdate(query4);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (stmt != null){
+                this.stmt.close();
+            }
+        }
+    }
+
+    public void upgradePoisson(String name, int niveau, int pointdevie) throws SQLException {
+        try{
+            this.stmt = this.connection.createStatement();
+            String query = "UPDATE poisson SET pv_p = \'"+ (pointdevie + 100) + "\' WHERE nom_p = \'" + name + "\'";
+            stmt.executeUpdate(query);
+
+            String query2 = "UPDATE poisson SET lvl_p = \'" + (niveau + 1) + "\' WHERE nom_p = \'" + name + "\'";
+            stmt.executeUpdate(query2);
+
+        }catch(SQLException e){
             e.printStackTrace();
         }finally {
             if (stmt != null){

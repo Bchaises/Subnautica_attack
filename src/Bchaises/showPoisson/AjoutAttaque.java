@@ -28,6 +28,8 @@ public class AjoutAttaque extends JFrame{
     private JTextArea attentionPlusLesDégatsTextArea;
     private JLabel JLabelDegats;
     private JLabel JLabelApprentissage;
+    private JLabel JLabelMessageMort;
+    private JLabel JLabelPointDeVie;
 
     public AjoutAttaque() {
         add(PanelAjoutAttaque);
@@ -36,6 +38,7 @@ public class AjoutAttaque extends JFrame{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         FillcomboExplo(comboBoxExplorateur);
+        apprendreLAttaqueButton.setEnabled(false);
 
         retourAccueilButton.addActionListener(new ActionListener() {
             @Override
@@ -74,8 +77,12 @@ public class AjoutAttaque extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 comboBoxPoisson.removeAllItems();
                 comboBoxAttaque.removeAllItems();
-                FillcomboPoisson(comboBoxPoisson, (String) comboBoxExplorateur.getSelectedItem());
-                FillcomboAttaque(comboBoxAttaque);
+
+                if (comboBoxExplorateur.getSelectedItem() != null){
+                    FillcomboPoisson(comboBoxPoisson, (String) comboBoxExplorateur.getSelectedItem());
+                    FillcomboAttaque(comboBoxAttaque);
+                }
+
             }
         });
 
@@ -95,12 +102,21 @@ public class AjoutAttaque extends JFrame{
                 Attaque a = new Attaque();
 
                 try {
-                    a = bdd.getAttaqueByName((String) comboBoxAttaque.getSelectedItem());
+                    if (comboBoxAttaque.getSelectedItem() != null){
+                        a = bdd.getAttaqueByName((String) comboBoxAttaque.getSelectedItem());
+                    }
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
-                JLabelDegats.setText( Integer.toString(a.getDegats()));
+                if (comboBoxAttaque.getSelectedItem() != null){
+                    JLabelDegats.setText( Integer.toString(a.getDegats()));
+                    apprendreLAttaqueButton.setEnabled(true);
+                }else{
+                    JLabelDegats.setText("-");
+                    apprendreLAttaqueButton.setEnabled(false);
+                }
 
             }
         });
@@ -111,7 +127,9 @@ public class AjoutAttaque extends JFrame{
                 DBManager bdd = new DBManager();
                 bdd.connection();
 
-                int random = (int) (Math.random() * ((Integer.parseInt(JLabelDegats.getText()) * 100) + 1));
+                JLabelMessageMort.setText("");
+
+                int random = (int) (Math.random() * ((Integer.parseInt(JLabelDegats.getText()) * 10) + 1));
                 boolean possede = false;
                 Poisson p = new Poisson();
                 Attaque a = new Attaque();
@@ -156,9 +174,31 @@ public class AjoutAttaque extends JFrame{
                         JLabelApprentissage.setText("Apprentissage échoué!");
                         JLabelApprentissage.setForeground(new Color(255,0,0));
                         try {
-                            bdd.setPointDeVie(p.getPointDeVie() - 5, p.getId());
+                            p.setPointDeVie(p.getPointDeVie() - 5);
+                            bdd.setPointDeVie(p.getPointDeVie(), p.getId());
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
+                        }
+
+                        JLabelPointDeVie.setText( Integer.toString(p.getPointDeVie()));
+
+                        if (p.getPointDeVie() <= 0){
+                            JLabelMessageMort.setText(comboBoxExplorateur.getSelectedItem().toString() + " votre poisson " + p.getNom() + " est mort! Il sera remis à zéro.");
+                            JLabelMessageMort.setForeground(new Color(255,0,0));
+
+                            try {
+                                bdd.resetPoisson(p.getNom());
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+
+                            JLabelDegats.setText("-");
+                            comboBoxAttaque.removeAllItems();
+                            JLabelPointDeVie.setText("-");
+                            comboBoxPoisson.removeAllItems();
+
+                            comboBoxExplorateur.removeAllItems();
+                            FillcomboExplo(comboBoxExplorateur);
                         }
 
                     }
@@ -170,6 +210,29 @@ public class AjoutAttaque extends JFrame{
 
             }
         });
+
+        comboBoxPoisson.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Poisson p = new Poisson();
+
+                DBManager bdd = new DBManager();
+                bdd.connection();
+
+                try {
+                    if (comboBoxPoisson.getSelectedItem() != null){
+                        p = bdd.getPoissonByName( comboBoxPoisson.getSelectedItem().toString());
+                        JLabelPointDeVie.setText( Integer.toString(p.getPointDeVie()));
+                    }else{
+                        JLabelPointDeVie.setText("-");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
     private void FillcomboExplo(JComboBox combobox){
