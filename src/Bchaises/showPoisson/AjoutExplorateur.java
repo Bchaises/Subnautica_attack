@@ -72,7 +72,7 @@ public class AjoutExplorateur extends JFrame{
                  * servira de nom pour l'image
                  * et la base de données
                  */
-
+            if(!textFieldName.getText().equals(" ")){
                 DBManager bdd = new DBManager();
                 bdd.connection();
 
@@ -138,6 +138,15 @@ public class AjoutExplorateur extends JFrame{
                         }
                     }
                 }
+
+                if(!JLabelMessage.getText().equals("")){
+                    JLabelMessage.setText("");
+                }
+
+            }else{
+                JLabelMessage.setText("Aucun nom renseigné.");
+            }
+
             }
         });
 

@@ -57,17 +57,33 @@ public class AjoutAttaque extends JFrame{
         ajouterAttaqueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DBManager bdd = new DBManager();
-                bdd.connection();
 
-                String nom = textFieldName.getText();
-                int degats = Integer.parseInt(textFieldDegats.getText());
+                System.out.println(textFieldName.getText());
+                if (!textFieldName.getText().equals("")){
+                    if (!textFieldDegats.getText().equals("")){
 
-                try {
-                    bdd.addAttaque(nom,degats);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                        DBManager bdd = new DBManager();
+                        bdd.connection();
+
+                        String nom = textFieldName.getText();
+                        int degats = Integer.parseInt(textFieldDegats.getText());
+
+                        try {
+                            bdd.addAttaque(nom,degats);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+                        if(!JLabelMessageMort.getText().equals("")){
+                            JLabelMessageMort.setText("");
+                        }
+                    }else{
+                        JLabelMessageMort.setText("Erreur sur les dégats renseignés");
+                    }
+                }else{
+                    JLabelMessageMort.setText("Aucun nom renseigné.");
                 }
+
 
             }
         });

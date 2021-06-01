@@ -86,71 +86,81 @@ public class AjoutPoisson extends JFrame{
                  * et la base de données
                  */
 
-                DBManager bdd = new DBManager();
-                bdd.connection();
+                if (!textFieldName.getText().equals(" ")){
+                    DBManager bdd = new DBManager();
+                    bdd.connection();
 
-                String nom = null;
-                nom = textFieldName.getText();
+                    String nom = null;
+                    nom = textFieldName.getText();
 
-                ArrayList<Poisson> tab_p = new ArrayList<>();
-                try {
-                    tab_p = bdd.getAllPoisson();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-                boolean existe = false;
-
-                InputStream is = null;
-                OutputStream os = null;
-
-                for (int ii = 0; ii < tab_p.size() ; ii++){
-                    if (tab_p.get(ii).getNom().equals(nom)){
-                        JLabelMessage.setText("Le personnage existe déjà.");
-                        existe = true;
-                        break;
+                    ArrayList<Poisson> tab_p = new ArrayList<>();
+                    try {
+                        tab_p = bdd.getAllPoisson();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
                     }
-                }
+                    boolean existe = false;
 
-                if (!existe){
-                    if (unknown[0]){
-                        PATH_out = "src/Bchaises/images/Unknown.png";
-                        JLabelPATH.setText("Unknown");
-                        try {
-                            bdd.addPoisson(nom, PATH_out);
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
+                    InputStream is = null;
+                    OutputStream os = null;
+
+                    for (int ii = 0; ii < tab_p.size() ; ii++){
+                        if (tab_p.get(ii).getNom().equals(nom)){
+                            JLabelMessage.setText("Le personnage existe déjà.");
+                            existe = true;
+                            break;
                         }
-                    }else{
-                        try {
-                            is = new FileInputStream(new File(PATH_is));
-                            os = new FileOutputStream(new File(PATH_out));
+                    }
 
-                            byte[] buffer = new byte[8192];
-                            int length;
-                            while ((length = is.read(buffer)) > 0) {
-                                os.write(buffer, 0, length);
-                            }
-
-                        } catch (FileNotFoundException fileNotFoundException) {
-                            fileNotFoundException.printStackTrace();
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
-                        }finally {
+                    if (!existe){
+                        if (unknown[0]){
+                            PATH_out = "src/Bchaises/images/Unknown.png";
+                            JLabelPATH.setText("Unknown");
                             try {
-                                is.close();
-                                os.close();
+                                bdd.addPoisson(nom, PATH_out);
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+                        }else{
+                            try {
+                                is = new FileInputStream(new File(PATH_is));
+                                os = new FileOutputStream(new File(PATH_out));
+
+                                byte[] buffer = new byte[8192];
+                                int length;
+                                while ((length = is.read(buffer)) > 0) {
+                                    os.write(buffer, 0, length);
+                                }
+
+                            } catch (FileNotFoundException fileNotFoundException) {
+                                fileNotFoundException.printStackTrace();
                             } catch (IOException ioException) {
                                 ioException.printStackTrace();
+                            }finally {
+                                try {
+                                    is.close();
+                                    os.close();
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
+                                }
+                            }
+
+                            try {
+                                bdd.addPoisson(nom, PATH_out);
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
                             }
                         }
-
-                        try {
-                            bdd.addPoisson(nom, PATH_out);
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
                     }
+
+                    if(!JLabelMessage.getText().equals("")){
+                        JLabelMessage.setText("");
+                    }
+                }else{
+                    JLabelMessage.setText("Aucun nom renseigné.");
                 }
+
+
             }
         });
 
